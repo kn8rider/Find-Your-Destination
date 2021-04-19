@@ -69,6 +69,17 @@
            android:textAllCaps="false"
            android:background="@drawable/bg_btn"
            />
+
+       <TextView
+           android:id="@+id/below_desc"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+           android:layout_marginTop="-80dp"
+           android:fontFamily="@font/amarante"
+           android:text="Search your desired location"
+           android:textColor="@color/black"
+           android:textSize="30sp" />
    </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"

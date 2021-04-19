@@ -59,22 +59,21 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback  {
     private GoogleMap gMap;
     private MapView mapView;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    public PlacesClient placesClient;
-    public List<AutocompletePrediction> predictionList;
-   public String city;
-    public Location mLastKnownLocation,loc1,loc2;
-    public LocationCallback locationCallback;
-    public View gMapView;
+    private List<AutocompletePrediction> predictionList;
+    private View gMapView;
+    public String city;
+    private Location mLastKnownLocation,loc1,loc2;
+    private LocationCallback locationCallback;
     public SearchView searchView;
-    public SupportMapFragment gmapFragment;
-    public Polyline polyline = null;
-    public List<LatLng> latLngList = new ArrayList<>();
-    public final float DEFAULT_ZOOM = 15;
-    public Button start_btn;
-    public   float distanceInKm;
+    private SupportMapFragment gmapFragment;
+    private Polyline polyline = null;
+    private List<LatLng> latLngList = new ArrayList<>();
+    private final float DEFAULT_ZOOM = 15;
+    private Button start_btn;
+    private   float distanceInKm;
     LinearLayout direction_layout,distance_layout,distance_and_time;
     CardView walking,cycle,bike,car;
-    TextView distance,time,walk_time,cycle_time,bike_time,car_time,desc_text;
+    TextView distance,time,walk_time,cycle_time,bike_time,car_time,desc_text,below_desc;
     private int time_walk,time_cycle,time_bike,time_car;
     @Override
     public View onCreateView(
@@ -98,6 +97,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback  {
         start_btn = myView.findViewById(R.id.start_journey_btn);
         distance_and_time = myView.findViewById(R.id.distance_and_time);
         desc_text = myView.findViewById(R.id.desc_text);
+        below_desc = myView.findViewById(R.id.below_desc);
         searchView = ((MapActivity2)getActivity()).searchView;
         city = ((MapActivity2)getActivity()).city;
 
@@ -115,6 +115,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback  {
         cycle_time.setVisibility(View.INVISIBLE);
         walk_time.setVisibility(View.INVISIBLE);
         car_time.setVisibility(View.INVISIBLE);
+        below_desc.setVisibility(View.INVISIBLE);
 
         mapView = (MapView) view.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -249,6 +250,8 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback  {
                 distance_and_time.setVisibility(View.VISIBLE);
                 distance.setText(dest+" km");
                 distance_layout.setVisibility(View.VISIBLE);
+                start_btn.setVisibility(View.INVISIBLE);
+                below_desc.setVisibility(View.VISIBLE);
             }
         });
 
