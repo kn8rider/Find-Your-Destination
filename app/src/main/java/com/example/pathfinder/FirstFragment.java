@@ -12,10 +12,8 @@ import android.widget.Filterable;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +31,7 @@ public class FirstFragment extends Fragment {
     private RecyclerView recView;
     private  Adapter adapter;
     private SearchView searchView;
-
+    public String city;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -43,27 +41,38 @@ public class FirstFragment extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_first, container, false);
         recView = myView.findViewById(R.id.recView);
         searchView = ((MapActivity2)getActivity()).searchView;
-
+        city = ((MapActivity2)getActivity()).city;
         recView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //fill data to the list
         fill_data_to_List();
         adapter = new Adapter(data,backup,getActivity());
         recView.setAdapter(adapter);
+        if(city.length()==0){ recView.setVisibility(View.INVISIBLE);
+        }
+        return myView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-
+                ((MapActivity2)getActivity()).add_map_fragment();
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
+                if(s.length()>0){
+                    recView.setVisibility(View.VISIBLE);
+                }
+                city=s;
                 adapter.getFilter().filter(s);
                 return false;
             }
         });
-        return myView;
     }
 
     // create Adapter class
@@ -86,17 +95,16 @@ public class FirstFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position)  {
-
             final CsvData temp = dataList.get(position);
             holder.name.setText(dataList.get(position).getCity()+", "+dataList.get(position).getState()+", "+dataList.get(position).getCountry());
-
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     String name = temp.getCity()+", "+temp.getState()+", "+temp.getCountry();
-                    ((MapActivity2)getActivity()).remove_fragment();
-                    searchView.setQuery(name,true);
-                    Log.d("text","The name of city is : "+name);
+                   // ((MapActivity2)getActivity()).remove_fragment();
+                    searchView.setQuery(name,false);
+                    ((MapActivity2)getActivity()).add_map_fragment();
+
                 }
             });
 
@@ -119,9 +127,9 @@ public class FirstFragment extends Fragment {
             protected FilterResults performFiltering(CharSequence key) {
                 ArrayList<CsvData> filterData = new ArrayList<>();
 
-                if(key.toString().isEmpty())
-                    filterData.addAll(dataList);
-
+                if(key.toString().isEmpty()) {
+//                    filterData.addAll(dataList);
+                }
                 else
                 {
                     for(CsvData obj : backup)
@@ -170,7 +178,6 @@ public class FirstFragment extends Fragment {
             }
         } catch (IOException e) {
 
-            Log.wtf("errorFounder","Error to reading data on line "+line,e);
             e.printStackTrace();
         }
     }

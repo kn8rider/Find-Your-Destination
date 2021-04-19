@@ -1,27 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondFragment">
+   android:id="@+id/second_fragment"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SecondFragment"
+  >
 
-    <TextView
-        android:id="@+id/textview_second"
+<com.google.android.gms.maps.MapView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/mapView"
+   />
+
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/get_direction"
+       android:layout_alignParentBottom="true"
+       android:background="#fff"
+       android:orientation="vertical">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:id="@+id/distance_and_time"
+          android:visibility="invisible"
+          android:orientation="horizontal">
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/distance"
+              android:layout_marginLeft="20dp"
+              android:text="26 min "
+              android:textSize="30dp"
+              android:textColor="@color/teal_700"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="5dp"
+              android:id="@+id/time"
+              android:text="( 13 km)"
+              android:textSize="30dp"
+              />
+      </LinearLayout>
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Click get start to begin your journey "
+           android:textSize="20dp"
+           android:id="@+id/desc_text"
+          android:gravity="center_horizontal"
+           android:layout_marginTop="-30dp"
+           android:textColor="@color/black"
+           />
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="get start"
+           android:textSize="18sp"
+           android:drawableLeft="@drawable/ic_cursor"
+           android:id="@+id/start_journey_btn"
+           android:layout_marginLeft="30dp"
+           android:layout_marginBottom="30dp"
+           android:layout_marginTop="20dp"
+           android:textAllCaps="false"
+           android:background="@drawable/bg_btn"
+           />
+   </LinearLayout>
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/button_second"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:id="@+id/distance_layout"
+        android:layout_marginTop="80dp"
+        android:background="#00ffffff">
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="5dp"
+            android:id="@+id/walking">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_one_man_walking"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/walking_time"
+                android:layout_gravity="center_horizontal"
+                android:text="2 hrs"
+                android:textSize="13sp"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="80dp"
+                android:textColor="@color/black"
+              />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="5dp"
+            android:id="@+id/cycle">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_bicycle_rider"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cycle_time"
+                android:layout_gravity="center_horizontal"
+                android:text="2 hrs"
+                android:textSize="13sp"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="80dp"
+                android:textColor="@color/black"
+                />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/bike">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_motorbike"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bike_time"
+                android:layout_gravity="center_horizontal"
+                android:text="2 hrs"
+                android:textSize="13sp"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="80dp"
+                android:textColor="@color/black"
+                />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/car">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_car"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/car_time"
+                android:layout_gravity="center_horizontal"
+                android:text="2 hrs"
+                android:textSize="13sp"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="80dp"
+                android:textColor="@color/black"
+                />
+        </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/button_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/previous"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_second" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</RelativeLayout>
