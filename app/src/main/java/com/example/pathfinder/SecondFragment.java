@@ -117,10 +117,14 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback  {
         car_time.setVisibility(View.INVISIBLE);
         below_desc.setVisibility(View.INVISIBLE);
 
-        mapView = (MapView) view.findViewById(R.id.mapView);
-        mapView.onCreate(savedInstanceState);
-        mapView.onResume();
-        mapView.getMapAsync(this);
+//        mapView = (MapView) view.findViewById(R.id.mapView);
+//        mapView.onCreate(savedInstanceState);
+//        mapView.onResume();
+//        mapView.getMapAsync(this);
+
+        gmapFragment = (SupportMapFragment)getChildFragmentManager().findFragmentById(R.id.mapView);
+        gmapFragment.getMapAsync(this);
+        gMapView = gmapFragment.getView();
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
     }
@@ -138,7 +142,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback  {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) locationButtton.getLayoutParams();
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP,0);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,RelativeLayout.TRUE);
-            layoutParams.setMargins(0,0,40,170);
+            layoutParams.setMargins(0,0,40,470);
         }
 
         // check if the gps location of the user's device is on or not and then request to enable it
